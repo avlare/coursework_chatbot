@@ -1,24 +1,18 @@
-from flask import Flask, request
-from tokens import VERIFY_TOKEN
-import requests
+import subprocess
+from flask import Flask
+import time
+from tokens import DOMAIN_ID
+from facebook_integration.webhooks import webhook_bp
 
 app = Flask(__name__)
 
-
-@app.route('/webhook', methods=['GET', 'POST'])
-def webhook():
-    if request.method == 'GET':
-        token = request.args.get('hub.verify_token')
-        challenge = request.args.get('hub.challenge')
-        if token == VERIFY_TOKEN:
-            return challenge
-        return "Invalid verification token", 403
-
-    elif request.method == 'POST':
-        data = request.json
-        print("Received data:", data)
-        return "Event received", 200
-
+app.register_blueprint(webhook_bp)
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    command = f"ngrok http --domain={DOMAIN_ID} 5000"
+    process = subprocess.Popen(command, shell=True)
+    time.sleep(5)
+    try:
+        app.run(port=5000, threaded=True)
+    finally:
+        process.terminate()
