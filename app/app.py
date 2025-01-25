@@ -1,5 +1,7 @@
+import subprocess
+
 from flask import Flask, request
-from tokens import VERIFY_TOKEN
+from tokens import VERIFY_TOKEN, DOMAIN_ID
 import requests
 
 app = Flask(__name__)
@@ -21,4 +23,10 @@ def webhook():
 
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    port = 5000
+    command = f"ngrok http --domain={DOMAIN_ID} 5000"
+    process = subprocess.Popen(command, shell=True)
+    try:
+        app.run(port)
+    finally:
+        process.terminate()
