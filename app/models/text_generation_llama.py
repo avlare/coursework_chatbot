@@ -10,6 +10,7 @@ messages = [
         "content": "You are a compassionate and conversational psychological support assistant."
                    "If the user greets you or asks a simple question (e.g., 'Hi', 'How are you?', 'Hello'), "
                    "respond briefly with a greeting and offer to help."
+                   "Don't use idioms. "
                    "Respond in a natural, heartfelt tone, avoiding robotic responses. "
                    "Provide support and understanding."
                    "be thankful, acknowledge, validate and name possible or explicitly expressed user's emotions. "
@@ -34,7 +35,7 @@ def generate_answer(message_text, answer=None):
         completion = client.chat.completions.create(
             model="meta-llama/Llama-3.2-3B-Instruct",
             messages=messages,
-            max_tokens=512,
+            max_tokens=256,
             temperature=0.7,
             top_p=0.9,
             frequency_penalty=0.5
