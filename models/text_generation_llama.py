@@ -1,6 +1,6 @@
 from huggingface_hub import InferenceClient
 
-from app.tokens import LLAMA_TOKEN
+from tokens import LLAMA_TOKEN
 
 client = InferenceClient(api_key=LLAMA_TOKEN)
 
