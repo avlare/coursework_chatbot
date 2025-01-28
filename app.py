@@ -13,6 +13,6 @@ if __name__ == '__main__':
     process = subprocess.Popen(command, shell=True)
     time.sleep(5)
     try:
-        app.run(port=5000, threaded=True)
+        app.run(port=5000)
     finally:
         process.terminate()
