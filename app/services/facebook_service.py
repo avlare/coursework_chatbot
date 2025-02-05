@@ -1,5 +1,5 @@
 import requests
-import nltk
+
 from tokens import APP_TOKEN, FACEBOOK_URL
 from settings import DELIVERED, UNKNOWN_FORMAT, SENT
 from settings import SUCCESSFUL_ANSWER_CODE, ACCEPTED_CODE, BAD_REQUEST_CODE
@@ -7,6 +7,8 @@ from settings import SUCCESSFUL_ANSWER_CODE, ACCEPTED_CODE, BAD_REQUEST_CODE
 from app.ai_models.translation import translate_user_message, translate_bot_message
 from app.ai_models.text_generation_llama import generate_answer
 from app.services.user_messages_service import UserMessagesService
+
+from app.ai_models.text_processing import preprocess_text, postprocess_text
 
 
 def send_message(send_id, message):
@@ -47,10 +49,11 @@ class FacebookService:
         return data['message']['text']
 
     def send_bot_answer(self, user_id, data):
-        sentences = nltk.tokenize.sent_tokenize(data)
+        sentences = preprocess_text(data)
         for sentence in sentences:
             translated_response = translate_bot_message(sentence)
-            send_message(user_id, translated_response)
+            postprocessed_responce = postprocess_text(translated_response)
+            send_message(user_id, postprocessed_responce)
         return None
 
     def validate_message(self, data):
