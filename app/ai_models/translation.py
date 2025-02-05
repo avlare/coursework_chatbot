@@ -36,3 +36,4 @@ def translate_user_message(message):
 
 def translate_bot_message(message):
     return translate_message(message, model_en_ukr, tokenizer_en_ukr, "en_XX", "uk_UA")
+
