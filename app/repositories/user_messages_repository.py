@@ -27,7 +27,10 @@ class UserMessagesRepository:
 
     def get_all_messages(self, user_id):
         user = self.find_user_by_id(user_id)
-        return user["messages"]
+        messages = user["messages"]
+        if len(messages) > 16:
+            return [messages[0]] + messages[-15:]
+        return messages
 
     def create_user(self, user_id):
         user = {"_id": user_id, "messages": [PROMPT]}
