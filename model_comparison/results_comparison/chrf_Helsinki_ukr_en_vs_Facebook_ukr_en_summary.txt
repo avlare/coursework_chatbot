@@ -1,0 +1,3 @@
+Comparison: Helsinki_ukr_en vs Facebook_ukr_en
+Mean Difference: -0.687222
+Confidence Interval: (-3.146978, 1.665639)
