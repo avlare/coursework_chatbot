@@ -1,4 +1,4 @@
 .idea/
 __pycache__/
 tokens.py
-fine-tuning/llama-therapist/
+fine-tuning/llama-therapist/*
