@@ -1,0 +1,3 @@
+Comparison: Helsinki_Fine_Tuned vs Facebook_eng_ukr
+Mean Difference: 2.633122
+Confidence Interval: (0.660814, 4.895277)
